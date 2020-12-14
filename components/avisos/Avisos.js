@@ -33,7 +33,16 @@ function selecionartodos(){
   .catch(err =>{
     return{tipo:"erro", corpo:"Erro:"+err}
   })  
+}//fim do selecionartodos
+
+
+/**
+ * Função que exclui um aviso do banco de dados
+ * @param {int} id Id do aviso
+ */
+function excluir(id){
+  return db.del().from('avisos').where('ID_avisos', id)
 }
 
-module.exports = {salvar, selecionartodos}  
+module.exports = {salvar, selecionartodos, excluir}  
 
