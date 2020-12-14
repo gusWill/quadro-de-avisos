@@ -1,3 +1,4 @@
+//conexão com o banco de dados
 const db = require('../../knexfile.js')
 
 /**
@@ -8,8 +9,8 @@ const db = require('../../knexfile.js')
  */
 function salvar(aviso){
 
-  //INSERT INTO avisos(titulo, data, mensagem) VALUES ('Prova d...', '2020-10...', 'Estudar para não...')
-  //db.insert(<obj com os dados>).into(<'nome da tabela'>)
+//INSERT INTO avisos(titulo, data, mensagem) VALUES ('Prova d...', '2020-10...', 'Estudar para não...')
+//db.insert(<obj com os dados>).into(<'nome da tabela'>)
   return db.insert(aviso).into('avisos')
     .then( _ =>{
       return{tipo:"sucesso", corpo:"Aviso cadastrado com sucesso" }
@@ -19,5 +20,20 @@ function salvar(aviso){
     })  
 }//fim salvar
 
-module.exports = {salvar}
+/**
+ * Seleciona todos os avisos cadastrados
+ * @returns {object} Objeto com todos os avisos cadastrados ou
+ * uma mensagem de erro 
+ */
+function selecionartodos(){
+  return db.select('*').from('avisos')
+  .then(avisos =>{
+    return avisos
+  })
+  .catch(err =>{
+    return{tipo:"erro", corpo:"Erro:"+err}
+  })  
+}
+
+module.exports = {salvar, selecionartodos}  
 

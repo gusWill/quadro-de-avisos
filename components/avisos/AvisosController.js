@@ -1,13 +1,14 @@
 const router = require('express').Router()
 
-const Aviso = require('./Avisos')
+const Avisos = require('./Avisos')
 
 router.get('/',(req,res)=>{
   res.send("Pag Principal")
 })
 
-router.get('/avisos',(req,res)=>{
-  res.send("Avisos Cadastrados")
+router.get('/avisos', async (req,res)=>{
+  const avisos = await Avisos.selecionartodos()
+  res.render('avisos',{avisos})
 })
 
 router.get('/avisos/novo',(req,res)=>{
@@ -19,7 +20,7 @@ router.post('/avisos/novo', async (req,res)=>{
   const data = req.body.data
   const mensagem = req.body.mensagem
 
-  const msg = await Aviso.salvar({titulo, data, mensagem})  
+  const msg = await Avisos.salvar({titulo, data, mensagem})  
   res.render('formulario_avisos', {msg})
 
 })
