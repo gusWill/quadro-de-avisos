@@ -43,7 +43,7 @@ function editar(aviso, id){
  * uma mensagem de erro 
  */
 function selecionartodos(){
-  return db.select('*').from('avisos')
+  return db.select('*').from('avisos').orderBy('data', 'DESC')
   .then(avisos =>{
     return avisos
   })
